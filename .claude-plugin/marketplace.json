@@ -1,0 +1,18 @@
+{
+  "name": "alex-skills",
+  "description": "Agent skills for design, frontend, and QA workflows.",
+  "owner": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "metadata": {
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "design-taste",
+      "source": "./design-taste",
+      "description": "Elicits a user's personal design taste through structured A/B rounds and produces a reusable taste doc."
+    }
+  ]
+}

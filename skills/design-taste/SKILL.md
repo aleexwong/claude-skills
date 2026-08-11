@@ -1,0 +1,1 @@
+../../plugins/design-taste/skills/design-taste/SKILL.md

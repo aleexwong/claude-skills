@@ -1,0 +1,12 @@
+{
+  "name": "design-taste",
+  "version": "0.1.0",
+  "description": "Discover, articulate, and document your personal design taste as a portable taste doc.",
+  "author": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "repository": "https://github.com/aleexwong/claude-skills",
+  "license": "MIT",
+  "keywords": ["design", "frontend", "ui", "taste", "elicitation"]
+}
