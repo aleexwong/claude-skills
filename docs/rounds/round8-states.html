@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layer 6 — states</title>
+<style>
+  :root {
+    --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --gutter:16px; --ink:#0f172a; --body:#475569; --mute:#64748b; --faint:#94a3b8;
+    --line:#e6e8ec; --line2:#eff1f5; --brand:#1f4ed8; --brand-bg:#eef2ff;
+    --red:#b91c1c; --red-dot:#dc2626; --red-bg:#fef2f2; --green:#166534; --green-bg:#dcfce7; --green-dot:#16a34a;
+    --amber:#92400e; --amber-bg:#fef3c7; --violet:#5b21b6; --violet-bg:#ede9fe;
+    --shadow:0 1px 2px rgba(15,23,42,.05), 0 6px 16px -8px rgba(15,23,42,.16);
+    --spring:cubic-bezier(.16,1,.3,1);
+  }
+  *, *::before, *::after { box-sizing:border-box; }
+  body { margin:0; padding:24px 20px 56px; background:#f2f2f0; font-family:var(--sans); color:var(--body); }
+  .wrap { max-width:820px; margin:0 auto; }
+  .switch { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:22px; position:sticky; top:0;
+            background:#f2f2f0; padding:8px 0; z-index:20; }
+  .switch button { font:inherit; font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase;
+                   background:#fff; border:1px solid #dcdfe3; color:var(--mute); border-radius:999px;
+                   padding:6px 14px; cursor:pointer; }
+  .switch button[aria-pressed="true"] { background:var(--brand); border-color:var(--brand); color:#fff; }
+  .stack { display:flex; flex-direction:column; gap:30px; }
+  .labrow { display:flex; align-items:center; gap:12px; margin:0 0 10px; }
+  .lab { background:#dededa; color:#1a1a1a; font-size:12px; font-weight:700; letter-spacing:.08em;
+         padding:5px 12px; border-radius:3px; }
+
+  /* ---- shared static design ---- */
+  .shell { background:#fbfbfa; border:1px solid #e7e7e4; border-radius:14px; padding:var(--gutter); position:relative; }
+  .aligned { padding-left:var(--gutter); padding-right:var(--gutter); }
+  header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px; }
+  header h1 { margin:0; font-family:var(--serif); font-size:18px; font-weight:600; color:var(--ink); letter-spacing:-.01em; }
+  header .meta { font-size:11px; color:var(--mute); font-variant-numeric:tabular-nums; }
+  .eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:600; }
+  .top { display:grid; grid-template-columns:1.85fr 1fr; gap:10px; margin-bottom:10px; align-items:start; }
+  .card { background:#fff; border-radius:12px; box-shadow:var(--shadow); }
+  .lead { padding:14px var(--gutter) 15px; background:linear-gradient(165deg,#f4f7ff 0%,#fff 62%); min-height:118px; }
+  .lead .eyebrow { color:var(--brand); }
+  .amount { font-family:var(--serif); font-size:40px; font-weight:600; color:var(--ink);
+            line-height:1; letter-spacing:-.025em; margin:7px 0 5px; font-variant-numeric:tabular-nums; }
+  .delta { font-size:11.5px; color:var(--red); font-weight:600; font-variant-numeric:tabular-nums; }
+  .delta span { color:var(--mute); font-weight:400; }
+  .side { display:flex; flex-direction:column; gap:10px; }
+  .side .card { padding:11px var(--gutter); display:flex; align-items:baseline; justify-content:space-between; gap:10px; min-height:54px; }
+  .side .eyebrow { color:var(--mute); }
+  .side .note { display:block; font-size:10px; color:var(--faint); text-transform:none; letter-spacing:0; font-weight:400; margin-top:3px; }
+  .side .val { font-family:var(--serif); font-size:17px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .sectionbar { display:flex; align-items:baseline; justify-content:space-between; margin:16px 0 7px; }
+  .sectionbar .eyebrow { color:var(--brand); }
+  .sectionbar .hint { font-size:10.5px; color:var(--faint); }
+  .tablecard { padding:5px 0 6px; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:600; color:var(--mute); padding:7px 8px; }
+  td { padding:7px 8px; color:var(--body); font-variant-numeric:tabular-nums; border-top:1px solid var(--line2); }
+  thead th { border-bottom:1px solid var(--line); }
+  tbody tr:first-child td { border-top:none; }
+  th:first-child, td:first-child { padding-left:var(--gutter); }
+  th:last-child, td:last-child { padding-right:var(--gutter); text-align:right; }
+  td.svc { font-family:var(--serif); font-size:13.5px; font-weight:600; color:var(--ink); }
+  td.amt { color:var(--ink); font-weight:600; }
+  tr.due td { background:#fffaf2; }
+  tr.due td.when { color:var(--amber); font-weight:600; }
+  .dot { display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:8px; vertical-align:middle; background:var(--green-dot); }
+  .dot.due { background:var(--red-dot); }
+  .tag { display:inline-block; font-size:10px; padding:2px 8px; border-radius:999px; margin-left:7px; vertical-align:1px; background:var(--brand-bg); color:var(--brand); }
+  .tag.infra { background:var(--amber-bg); color:var(--amber); }
+  .tag.home { background:var(--green-bg); color:var(--green); }
+  .tag.work { background:var(--violet-bg); color:var(--violet); }
+
+  /* ---- shared bits used by states ---- */
+  .skel { background:linear-gradient(90deg,#eef0f3 25%,#f6f7f9 37%,#eef0f3 63%);
+          background-size:400% 100%; animation:sh 1.4s ease-in-out infinite; border-radius:5px; }
+  @keyframes sh { 0%{background-position:100% 0} 100%{background-position:0 0} }
+  .linkbtn { font:inherit; font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:600;
+             color:var(--brand); background:none; border:none; padding:0; cursor:pointer; }
+  .btn { font:inherit; font-size:11.5px; font-weight:600; background:var(--brand); color:#fff;
+         border:none; border-radius:8px; padding:9px 18px; cursor:pointer; }
+  .btn.ghost { background:#fff; color:var(--brand); border:1px solid #cfd8f5; }
+  .stale { color:var(--faint); }
+
+  /* ===== A : quiet, in place ===== */
+  .A .cellfail { color:var(--faint); font-style:italic; font-size:11.5px; }
+  .A .inline-note { font-size:10.5px; color:var(--amber); font-weight:600; margin-top:6px; display:flex;
+                    align-items:center; gap:8px; }
+  .A .inline-note .linkbtn { color:var(--brand); }
+  .A .topline { display:flex; align-items:baseline; gap:9px; font-size:10.5px; color:var(--amber);
+                font-weight:600; margin:-6px 0 12px; padding-left:var(--gutter); }
+  .A .emptyline { padding:14px var(--gutter); font-size:12.5px; color:var(--mute); display:flex;
+                  justify-content:space-between; align-items:center; }
+
+  /* ===== B : explicit, owns the failure ===== */
+  .B .banner { display:flex; align-items:flex-start; gap:11px; padding:12px var(--gutter); border-radius:12px;
+               background:var(--red-bg); border:1px solid #f6cfcf; margin-bottom:12px; }
+  .B .banner.warn { background:var(--amber-bg); border-color:#f0dca4; }
+  .B .banner .bmark { width:16px; height:16px; border-radius:50%; background:var(--red-dot); color:#fff;
+                      font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; margin-top:1px; }
+  .B .banner.warn .bmark { background:#d97706; }
+  .B .banner b { display:block; font-size:12.5px; color:var(--ink); margin-bottom:2px; }
+  .B .banner p { margin:0; font-size:11.5px; color:var(--body); }
+  .B .banner .act { margin-left:auto; }
+  .B .failcard { display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:7px;
+                 background:var(--red-bg); }
+  .B .failcard .eyebrow { color:var(--red); }
+  .B .failcard .msg { font-size:11.5px; color:var(--body); }
+  .B .takeover { padding:44px var(--gutter); text-align:center; }
+  .B .takeover .mark { width:38px; height:38px; border-radius:50%; background:var(--red-bg);
+                       border:1px solid #f6cfcf; color:var(--red); display:flex; align-items:center;
+                       justify-content:center; font-size:19px; font-weight:700; margin:0 auto 14px; }
+  .B .takeover h3 { margin:0 0 6px; font-family:var(--serif); font-size:19px; font-weight:600; color:var(--ink); }
+  .B .takeover p { margin:0 auto 18px; font-size:12.5px; max-width:330px; color:var(--body); }
+  .B .takeover .row { display:flex; gap:9px; justify-content:center; }
+  .B .spinbar { height:3px; border-radius:2px; background:#e3e8f5; overflow:hidden; margin-bottom:14px; }
+  .B .spinbar i { display:block; height:100%; width:36%; background:var(--brand); border-radius:2px;
+                  animation:slide 1.15s ease-in-out infinite; }
+  @keyframes slide { 0%{transform:translateX(-110%)} 100%{transform:translateX(320%)} }
+  .B .loadmsg { display:flex; align-items:center; gap:9px; font-size:11.5px; color:var(--mute);
+                padding-left:var(--gutter); margin-bottom:12px; }
+
+  @media (prefers-reduced-motion:reduce){ .skel,.spinbar i { animation:none } }
+  @media (max-width:640px){ .top{grid-template-columns:1fr} .tag{display:none} :root{--gutter:12px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="switch" id="switch">
+    <button data-s="loading" aria-pressed="false">Loading</button>
+    <button data-s="partial" aria-pressed="true">Partial failure</button>
+    <button data-s="total" aria-pressed="false">Total failure</button>
+    <button data-s="empty" aria-pressed="false">Empty</button>
+  </div>
+
+  <div class="stack">
+    <div>
+      <div class="labrow"><span class="lab">A</span></div>
+      <div class="shell A" id="pa"></div>
+    </div>
+    <div>
+      <div class="labrow"><span class="lab">B</span></div>
+      <div class="shell B" id="pb"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const head = `<header class="aligned"><h1>Subscriptions</h1><span class="meta">Updated 09:14 · 23 active</span></header>`;
+const headStale = `<header class="aligned"><h1>Subscriptions</h1><span class="meta stale">Last updated 08:02 · stale</span></header>`;
+const headBlank = `<header class="aligned"><h1>Subscriptions</h1><span class="meta stale">—</span></header>`;
+
+const rows = `
+  <tr class="due"><td class="svc"><span class="dot due"></span>Adobe CC<span class="tag">design</span></td><td>Individual</td><td class="when">Aug 9 · in 2d</td><td class="amt">$29.99</td></tr>
+  <tr class="due"><td class="svc"><span class="dot due"></span>AWS<span class="tag infra">infra</span></td><td>Pay-as-you-go</td><td class="when">Aug 11 · in 4d</td><td class="amt">$41.20</td></tr>
+  <tr><td class="svc"><span class="dot"></span>Notion<span class="tag work">work</span></td><td>Plus, 3 seats</td><td>Aug 18</td><td class="amt">$24.00</td></tr>
+  <tr><td class="svc"><span class="dot"></span>Spotify<span class="tag home">home</span></td><td>Duo</td><td>Aug 22</td><td class="amt">$16.99</td></tr>`;
+
+const tbl = body => `<div class="sectionbar aligned"><span class="eyebrow">Upcoming charges</span><span class="hint">Next 30 days</span></div>
+  <div class="card tablecard"><table>
+  <thead><tr><th>Service</th><th>Plan</th><th>Charges</th><th>Amount</th></tr></thead>
+  <tbody>${body}</tbody></table></div>`;
+
+const skelRows = n => Array.from({length:n}, () => `
+  <tr><td class="svc"><div class="skel" style="height:13px;width:118px"></div></td>
+      <td><div class="skel" style="height:11px;width:88px"></div></td>
+      <td><div class="skel" style="height:11px;width:74px"></div></td>
+      <td class="amt"><div class="skel" style="height:11px;width:52px;margin-left:auto"></div></td></tr>`).join('');
+
+const leadFull = `<div class="card lead"><div class="eyebrow">Monthly spend</div>
+  <div class="amount">$412.88</div><div class="delta">+$18.40 <span>vs. July · +4.7%</span></div></div>`;
+
+const sideFull = `<div class="side">
+  <div class="card"><span class="eyebrow">Renewing in 7d<span class="note">4 charges</span></span><span class="val">$96.47</span></div>
+  <div class="card"><span class="eyebrow">Changed this month<span class="note">2 added, 1 cancelled</span></span><span class="val">+3</span></div></div>`;
+
+const V = {
+  A: {
+    loading: () => head + `<div class="top">
+        <div class="card lead"><div class="eyebrow">Monthly spend</div>
+          <div class="skel" style="height:38px;width:180px;margin:8px 0 8px"></div>
+          <div class="skel" style="height:11px;width:140px"></div></div>
+        <div class="side">
+          <div class="card"><span class="eyebrow">Renewing in 7d</span><div class="skel" style="height:15px;width:62px"></div></div>
+          <div class="card"><span class="eyebrow">Changed this month</span><div class="skel" style="height:15px;width:34px"></div></div>
+        </div></div>` + tbl(skelRows(4)),
+
+    partial: () => headStale + `<div class="top">
+        <div class="card lead"><div class="eyebrow">Monthly spend</div>
+          <div class="amount">$412.88</div><div class="delta">+$18.40 <span>vs. July · +4.7%</span></div>
+        </div>
+        <div class="side">
+          <div class="card"><span class="eyebrow">Renewing in 7d<span class="note cellfail">couldn't load</span></span><span class="val stale">—</span></div>
+          <div class="card"><span class="eyebrow">Changed this month<span class="note">2 added, 1 cancelled</span></span><span class="val">+3</span></div>
+        </div></div>
+        <div class="inline-note aligned">Renewals unavailable · retry <button class="linkbtn">Retry</button></div>` + tbl(rows),
+
+    total: () => headStale + `<div class="topline">Live data unavailable — showing 08:02 snapshot <button class="linkbtn">Retry</button></div>
+      <div class="top">
+        <div class="card lead"><div class="eyebrow">Monthly spend</div>
+          <div class="amount stale">$412.88</div><div class="delta"><span>as of 08:02</span></div></div>
+        <div class="side">
+          <div class="card"><span class="eyebrow">Renewing in 7d<span class="note cellfail">stale</span></span><span class="val stale">$96.47</span></div>
+          <div class="card"><span class="eyebrow">Changed this month<span class="note cellfail">stale</span></span><span class="val stale">+3</span></div>
+        </div></div>` + tbl(rows),
+
+    empty: () => head.replace('23 active','0 active') + `<div class="top">
+        <div class="card lead"><div class="eyebrow">Monthly spend</div>
+          <div class="amount">$0.00</div><div class="delta"><span>nothing tracked yet</span></div></div>
+        <div class="side">
+          <div class="card"><span class="eyebrow">Renewing in 7d<span class="note">no charges</span></span><span class="val">$0.00</span></div>
+          <div class="card"><span class="eyebrow">Changed this month<span class="note">no activity</span></span><span class="val">0</span></div>
+        </div></div>
+        <div class="sectionbar aligned"><span class="eyebrow">Upcoming charges</span><span class="hint">Next 30 days</span></div>
+        <div class="card"><div class="emptyline">No subscriptions tracked yet. <button class="linkbtn">Add the first one</button></div></div>`
+  },
+
+  B: {
+    loading: () => head + `<div class="spinbar"><i></i></div>
+      <div class="loadmsg">Loading subscriptions…</div>
+      <div class="top">
+        <div class="card lead" style="opacity:.35"><div class="eyebrow">Monthly spend</div><div class="amount">—</div></div>
+        <div class="side">
+          <div class="card" style="opacity:.35"><span class="eyebrow">Renewing in 7d</span><span class="val">—</span></div>
+          <div class="card" style="opacity:.35"><span class="eyebrow">Changed this month</span><span class="val">—</span></div>
+        </div></div>` + tbl(''),
+
+    partial: () => head + `<div class="banner warn"><span class="bmark">!</span>
+        <div><b>Renewal data didn't load</b><p>Everything else on this page is current.</p></div>
+        <span class="act"><button class="btn ghost">Retry</button></span></div>
+      <div class="top">${leadFull}
+        <div class="side">
+          <div class="card failcard"><span class="eyebrow">Renewing in 7d</span><span class="msg">Request failed</span></div>
+          <div class="card"><span class="eyebrow">Changed this month<span class="note">2 added, 1 cancelled</span></span><span class="val">+3</span></div>
+        </div></div>` + tbl(rows),
+
+    total: () => headBlank + `<div class="takeover">
+        <div class="mark">!</div>
+        <h3>Couldn't load your subscriptions</h3>
+        <p>The request timed out after 30 seconds. Your data hasn't changed — this is a connection problem.</p>
+        <div class="row"><button class="btn">Try again</button><button class="btn ghost">Work offline</button></div>
+      </div>`,
+
+    empty: () => head.replace('23 active','0 active') + `<div class="takeover">
+        <div class="mark" style="background:var(--brand-bg);border-color:#cfd8f5;color:var(--brand)">+</div>
+        <h3>Nothing tracked yet</h3>
+        <p>Add your first subscription and this page will start showing spend, renewals, and month-over-month change.</p>
+        <div class="row"><button class="btn">Add a subscription</button><button class="btn ghost">Import from email</button></div>
+      </div>`
+  }
+};
+
+let state = 'partial';
+function render(){
+  document.getElementById('pa').innerHTML = V.A[state]();
+  document.getElementById('pb').innerHTML = V.B[state]();
+  document.querySelectorAll('#switch button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.s === state)));
+}
+document.getElementById('switch').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  state = b.dataset.s; render();
+});
+render();
+</script>
+</body>
+</html>

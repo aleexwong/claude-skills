@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round 1 — A / B</title>
+<style>
+  :root { --ink:#141414; --mid:#5c5c5c; --soft:#8a8a8a; --line:#e3e3e0; --line2:#f0f0ee;
+          --surf:#ffffff; --page:#fafaf9; --ok:#3f8f5c; --warn:#b8863b; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin:0; padding:28px 20px 48px; background:#f2f2f0;
+         font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:30px; }
+  .lab { display:inline-block; background:#dededa; color:#1a1a1a; font-size:12px; font-weight:700;
+         letter-spacing:.08em; padding:5px 12px; border-radius:3px; margin:0 0 10px; }
+  .panel { background:var(--page); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+
+  /* ---------- VARIANT A ---------- */
+  .a { padding:14px; }
+  .a .head { display:flex; align-items:baseline; justify-content:space-between;
+             padding-bottom:10px; border-bottom:1px solid var(--line); margin-bottom:12px; }
+  .a h2 { margin:0; font-size:14px; font-weight:600; color:var(--ink); letter-spacing:-.01em; }
+  .a .sub { font-size:11px; color:var(--soft); }
+  .a .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
+              border:1px solid var(--line); margin-bottom:12px; }
+  .a .stat { background:var(--surf); padding:9px 11px; }
+  .a .stat .k { font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--soft); margin-bottom:3px; }
+  .a .stat .v { font-size:19px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+  .a .stat .d { font-size:11px; color:var(--mid); margin-top:2px; font-variant-numeric:tabular-nums; }
+  .a table { width:100%; border-collapse:collapse; background:var(--surf); border:1px solid var(--line); font-size:12.5px; }
+  .a th { text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--soft);
+          font-weight:600; padding:6px 10px; border-bottom:1px solid var(--line); background:#f6f6f4; }
+  .a td { padding:6px 10px; border-bottom:1px solid var(--line2); color:var(--mid); font-variant-numeric:tabular-nums; }
+  .a tr:last-child td { border-bottom:0; }
+  .a td.name { color:var(--ink); font-weight:500; }
+  .a td.num, .a th.num { text-align:right; }
+  .a .tag { display:inline-block; font-size:10px; padding:1px 5px; border:1px solid var(--line);
+            border-radius:2px; color:var(--soft); margin-left:6px; }
+  .a .dot { display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+
+  /* ---------- VARIANT B ---------- */
+  .b { padding:38px 34px; }
+  .b .head { margin-bottom:34px; }
+  .b h2 { margin:0 0 6px; font-size:20px; font-weight:600; color:var(--ink); letter-spacing:-.02em; }
+  .b .sub { font-size:14px; color:var(--soft); }
+  .b .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:34px; margin-bottom:44px; }
+  .b .stat .k { font-size:13px; color:var(--soft); margin-bottom:10px; }
+  .b .stat .v { font-size:34px; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums;
+                letter-spacing:-.03em; line-height:1.1; }
+  .b .stat .d { font-size:13px; color:var(--mid); margin-top:8px; }
+  .b table { width:100%; border-collapse:collapse; font-size:15px; }
+  .b th { text-align:left; font-size:13px; color:var(--soft); font-weight:400; padding:0 0 16px; }
+  .b td { padding:18px 0; border-top:1px solid var(--line2); color:var(--mid); font-variant-numeric:tabular-nums; }
+  .b td.name { color:var(--ink); font-weight:500; }
+  .b td.num, .b th.num { text-align:right; }
+  .b .dot { display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:10px; vertical-align:middle; }
+
+  @media (max-width:640px){
+    .a .stats, .b .stats { grid-template-columns:1fr; }
+    .b { padding:24px 18px; }
+    .a .tag { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div>
+    <span class="lab">A</span>
+    <div class="panel a">
+      <div class="head">
+        <h2>Subscriptions</h2>
+        <span class="sub">Updated 09:14 · 6 of 23 shown</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="k">Monthly spend</div><div class="v">$412.88</div><div class="d">+$18.40 vs. July</div></div>
+        <div class="stat"><div class="k">Active</div><div class="v">23</div><div class="d">2 added, 1 cancelled</div></div>
+        <div class="stat"><div class="k">Renewing in 7d</div><div class="v">$96.47</div><div class="d">4 charges</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Service</th><th>Plan</th><th>Next charge</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>Adobe CC<span class="tag">design</span></td><td>Individual</td><td>Aug 9</td><td class="num">$29.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>AWS<span class="tag">infra</span></td><td>Pay-as-you-go</td><td>Aug 11</td><td class="num">$41.20</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Notion<span class="tag">work</span></td><td>Plus, 3 seats</td><td>Aug 18</td><td class="num">$24.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Spotify<span class="tag">home</span></td><td>Duo</td><td>Aug 22</td><td class="num">$16.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Figma<span class="tag">design</span></td><td>Professional</td><td>Aug 27</td><td class="num">$15.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Backblaze<span class="tag">infra</span></td><td>Personal</td><td>Sep 02</td><td class="num">$9.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <span class="lab">B</span>
+    <div class="panel b">
+      <div class="head">
+        <h2>Subscriptions</h2>
+        <div class="sub">Updated 09:14 · 6 of 23 shown</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="k">Monthly spend</div><div class="v">$412.88</div><div class="d">+$18.40 vs. July</div></div>
+        <div class="stat"><div class="k">Active</div><div class="v">23</div><div class="d">2 added, 1 cancelled</div></div>
+        <div class="stat"><div class="k">Renewing in 7 days</div><div class="v">$96.47</div><div class="d">4 charges</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Service</th><th>Plan</th><th>Next charge</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>Adobe CC</td><td>Individual</td><td>Aug 9</td><td class="num">$29.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>AWS</td><td>Pay-as-you-go</td><td>Aug 11</td><td class="num">$41.20</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Notion</td><td>Plus, 3 seats</td><td>Aug 18</td><td class="num">$24.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Spotify</td><td>Duo</td><td>Aug 22</td><td class="num">$16.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Figma</td><td>Professional</td><td>Aug 27</td><td class="num">$15.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Backblaze</td><td>Personal</td><td>Sep 02</td><td class="num">$9.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

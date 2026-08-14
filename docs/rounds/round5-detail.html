@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round 5 — A / B</title>
+<style>
+  :root { --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+          --ink:#0f172a; --body:#475569; --mute:#64748b; --faint:#94a3b8;
+          --line:#dcdfe3; --line2:#eef1f5; --brand:#1f4ed8; --brand-bg:#eef2ff;
+          --red:#b91c1c; --amber-bg:#fef3c7; --amber:#92400e; --green-bg:#dcfce7; --green:#166534; }
+  *, *::before, *::after { box-sizing:border-box; }
+  body { margin:0; padding:28px 20px 48px; background:#f2f2f0; font-family:var(--sans); }
+  .wrap { max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:30px; }
+  .lab { display:inline-block; background:#dededa; color:#1a1a1a; font-size:12px; font-weight:700;
+         letter-spacing:.08em; padding:5px 12px; border-radius:3px; margin:0 0 10px; }
+
+  /* ---- identical in both: density, hierarchy, type, color semantics ---- */
+  .panel { background:#fbfbfa; padding:14px; }
+  .head { display:flex; align-items:baseline; justify-content:space-between; padding-bottom:10px; margin-bottom:12px; }
+  .head h2 { margin:0; font-family:var(--serif); font-weight:600; font-size:17px; color:var(--ink); }
+  .head .sub { font-size:11px; color:var(--mute); }
+  .lead .k, .side .k, .seclabel, th { font-size:10px; text-transform:uppercase; letter-spacing:.07em; font-weight:600; }
+  .lead .k { color:var(--brand); margin-bottom:5px; }
+  .lead .v { font-family:var(--serif); font-size:38px; font-weight:600; line-height:1; letter-spacing:-.02em; color:var(--ink); }
+  .lead .d { font-size:11px; margin-top:6px; color:var(--red); font-weight:600; font-variant-numeric:tabular-nums; }
+  .side .k { color:var(--mute); }
+  .side .v { font-family:var(--serif); font-size:15px; font-weight:600; color:var(--ink); }
+  .side .d { font-size:10px; color:var(--faint); display:block; margin-top:2px; }
+  .seclabel { color:var(--brand); margin:0 0 5px; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; padding:6px 10px; color:#475569; }
+  td { padding:6px 10px; color:var(--body); font-variant-numeric:tabular-nums; }
+  td.name { font-family:var(--serif); font-size:13.5px; font-weight:600; color:var(--ink); }
+  td.num, th.num { text-align:right; color:var(--ink); font-weight:600; }
+  .tag { display:inline-block; font-size:10px; padding:1px 5px; margin-left:6px; background:var(--brand-bg); color:var(--brand); }
+  .tag.infra { background:var(--amber-bg); color:var(--amber); }
+  .tag.home { background:var(--green-bg); color:var(--green); }
+  .dot { display:inline-block; width:6px; height:6px; margin-right:6px; vertical-align:middle; background:#16a34a; }
+  .dot.warn { background:#dc2626; }
+  .side .stat { padding:8px 11px; flex:1; display:flex; align-items:baseline; justify-content:space-between; }
+
+  /* ---------- VARIANT A : hard-edged, borders, zero softness ---------- */
+  .a { border:1px solid var(--line); border-radius:0; }
+  .a .head { border-bottom:2px solid var(--brand); }
+  .a .top { display:grid; grid-template-columns:1.9fr 1fr; gap:1px; background:var(--line);
+            border:1px solid var(--line); margin-bottom:12px; }
+  .a .lead { background:var(--brand-bg); border-left:3px solid var(--brand); padding:14px 14px 12px; }
+  .a .side { display:flex; flex-direction:column; gap:1px; background:var(--line); }
+  .a .side .stat { background:#fff; }
+  .a table { background:#fff; border:1px solid var(--line); }
+  .a th { background:#f1f5f9; border-bottom:1px solid var(--line); }
+  .a td { border-bottom:1px solid var(--line2); }
+  .a tr:last-child td { border-bottom:0; }
+  .a tr.soon td { background:#fff7ed; }
+  .a .tag { border-radius:0; }
+  .a .dot { border-radius:0; }
+
+  /* ---------- VARIANT B : softened, shadows, rounded, floating ---------- */
+  .b { border:1px solid #e7e7e4; border-radius:14px; }
+  .b .head { border-bottom:none; }
+  .b .top { display:grid; grid-template-columns:1.9fr 1fr; gap:10px; margin-bottom:14px; }
+  .b .lead { background:linear-gradient(160deg,#f3f6ff,#fff); border-radius:12px; padding:16px;
+             box-shadow:0 1px 2px rgba(15,23,42,.06), 0 6px 16px -6px rgba(15,23,42,.12); }
+  .b .side { display:flex; flex-direction:column; gap:10px; }
+  .b .side .stat { background:#fff; border-radius:12px;
+                   box-shadow:0 1px 2px rgba(15,23,42,.06), 0 6px 16px -6px rgba(15,23,42,.12); }
+  .b .tablecard { background:#fff; border-radius:12px; padding:4px 6px 6px;
+                  box-shadow:0 1px 2px rgba(15,23,42,.06), 0 6px 16px -6px rgba(15,23,42,.12); }
+  .b th { background:transparent; }
+  .b td { border-top:1px solid var(--line2); }
+  .b tbody tr:first-child td { border-top:none; }
+  .b tbody tr td:first-child { border-top-left-radius:8px; border-bottom-left-radius:8px; }
+  .b tbody tr td:last-child { border-top-right-radius:8px; border-bottom-right-radius:8px; }
+  .b tr.soon td { background:#fff7ed; }
+  .b .tag { border-radius:999px; padding:2px 8px; }
+  .b .dot { border-radius:50%; width:7px; height:7px; }
+
+  @media (max-width:640px){ .a .top, .b .top { grid-template-columns:1fr; } .tag { display:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div>
+    <span class="lab">A</span>
+    <div class="panel a">
+      <div class="head"><h2>Subscriptions</h2><span class="sub">Updated 09:14 · 6 of 23 shown</span></div>
+      <div class="top">
+        <div class="lead"><div class="k">Monthly spend</div><div class="v">$412.88</div><div class="d">+$18.40 vs. July</div></div>
+        <div class="side">
+          <div class="stat"><span class="k">Active<span class="d">2 added, 1 cancelled</span></span><span class="v">23</span></div>
+          <div class="stat"><span class="k">Renewing in 7d<span class="d">4 charges</span></span><span class="v">$96.47</span></div>
+        </div>
+      </div>
+      <div class="seclabel">Upcoming charges</div>
+      <table>
+        <thead><tr><th>Service</th><th>Plan</th><th>Next charge</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr class="soon"><td class="name"><span class="dot warn"></span>Adobe CC<span class="tag">design</span></td><td>Individual</td><td>Aug 9</td><td class="num">$29.99</td></tr>
+          <tr class="soon"><td class="name"><span class="dot warn"></span>AWS<span class="tag infra">infra</span></td><td>Pay-as-you-go</td><td>Aug 11</td><td class="num">$41.20</td></tr>
+          <tr><td class="name"><span class="dot"></span>Notion<span class="tag">work</span></td><td>Plus, 3 seats</td><td>Aug 18</td><td class="num">$24.00</td></tr>
+          <tr><td class="name"><span class="dot"></span>Spotify<span class="tag home">home</span></td><td>Duo</td><td>Aug 22</td><td class="num">$16.99</td></tr>
+          <tr><td class="name"><span class="dot"></span>Figma<span class="tag">design</span></td><td>Professional</td><td>Aug 27</td><td class="num">$15.00</td></tr>
+          <tr><td class="name"><span class="dot"></span>Backblaze<span class="tag infra">infra</span></td><td>Personal</td><td>Sep 02</td><td class="num">$9.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <span class="lab">B</span>
+    <div class="panel b">
+      <div class="head"><h2>Subscriptions</h2><span class="sub">Updated 09:14 · 6 of 23 shown</span></div>
+      <div class="top">
+        <div class="lead"><div class="k">Monthly spend</div><div class="v">$412.88</div><div class="d">+$18.40 vs. July</div></div>
+        <div class="side">
+          <div class="stat"><span class="k">Active<span class="d">2 added, 1 cancelled</span></span><span class="v">23</span></div>
+          <div class="stat"><span class="k">Renewing in 7d<span class="d">4 charges</span></span><span class="v">$96.47</span></div>
+        </div>
+      </div>
+      <div class="seclabel">Upcoming charges</div>
+      <div class="tablecard">
+        <table>
+          <thead><tr><th>Service</th><th>Plan</th><th>Next charge</th><th class="num">Amount</th></tr></thead>
+          <tbody>
+            <tr class="soon"><td class="name"><span class="dot warn"></span>Adobe CC<span class="tag">design</span></td><td>Individual</td><td>Aug 9</td><td class="num">$29.99</td></tr>
+            <tr class="soon"><td class="name"><span class="dot warn"></span>AWS<span class="tag infra">infra</span></td><td>Pay-as-you-go</td><td>Aug 11</td><td class="num">$41.20</td></tr>
+            <tr><td class="name"><span class="dot"></span>Notion<span class="tag">work</span></td><td>Plus, 3 seats</td><td>Aug 18</td><td class="num">$24.00</td></tr>
+            <tr><td class="name"><span class="dot"></span>Spotify<span class="tag home">home</span></td><td>Duo</td><td>Aug 22</td><td class="num">$16.99</td></tr>
+            <tr><td class="name"><span class="dot"></span>Figma<span class="tag">design</span></td><td>Professional</td><td>Aug 27</td><td class="num">$15.00</td></tr>
+            <tr><td class="name"><span class="dot"></span>Backblaze<span class="tag infra">infra</span></td><td>Personal</td><td>Sep 02</td><td class="num">$9.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

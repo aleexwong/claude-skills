@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round 3 — A / B</title>
+<style>
+  :root { --ink:#141414; --mid:#5c5c5c; --soft:#8a8a8a; --line:#e3e3e0; --line2:#f0f0ee;
+          --surf:#ffffff; --page:#fafaf9; --ok:#3f8f5c; --warn:#b8863b;
+          --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+          --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif; }
+  *, *::before, *::after { box-sizing:border-box; }
+  body { margin:0; padding:28px 20px 48px; background:#f2f2f0; font-family:var(--sans); }
+  .wrap { max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:30px; }
+  .lab { display:inline-block; background:#dededa; color:#1a1a1a; font-size:12px; font-weight:700;
+         letter-spacing:.08em; padding:5px 12px; border-radius:3px; margin:0 0 10px; font-family:var(--sans); }
+  .panel { background:var(--page); border:1px solid var(--line); border-radius:6px; padding:14px; }
+
+  /* shared structure: dense + hierarchical (your round 1 & 2 picks) */
+  .head { display:flex; align-items:baseline; justify-content:space-between;
+          padding-bottom:10px; border-bottom:1px solid var(--line); margin-bottom:12px; }
+  .head h2 { margin:0; font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-.01em; }
+  .head .sub { font-size:11px; color:var(--soft); }
+  .top { display:grid; grid-template-columns:1.9fr 1fr; gap:1px; background:var(--line);
+         border:1px solid var(--line); margin-bottom:12px; }
+  .lead { background:var(--surf); padding:14px 14px 12px; }
+  .lead .k { font-size:10px; color:var(--soft); margin-bottom:5px; }
+  .lead .v { font-size:38px; color:var(--ink); line-height:1; }
+  .lead .d { font-size:11px; color:var(--mid); margin-top:6px; }
+  .side { display:flex; flex-direction:column; gap:1px; background:var(--line); }
+  .side .stat { background:var(--surf); padding:8px 11px; flex:1; display:flex; align-items:baseline; justify-content:space-between; }
+  .side .k { font-size:10px; color:var(--soft); }
+  .side .v { font-size:15px; color:var(--ink); }
+  .side .d { font-size:10px; color:var(--soft); display:block; margin-top:2px; }
+  .seclabel { font-size:10px; color:var(--soft); margin:0 0 5px; }
+  table { width:100%; border-collapse:collapse; background:var(--surf); border:1px solid var(--line); font-size:12.5px; }
+  th { text-align:left; font-size:10px; color:var(--soft); padding:6px 10px; border-bottom:1px solid var(--line); background:#f6f6f4; }
+  td { padding:6px 10px; border-bottom:1px solid var(--line2); color:var(--mid); }
+  tr:last-child td { border-bottom:0; }
+  td.name { color:var(--ink); }
+  td.num, th.num { text-align:right; }
+  .tag { display:inline-block; font-size:10px; padding:1px 5px; border:1px solid var(--line); border-radius:2px; color:var(--soft); margin-left:6px; }
+  .dot { display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+
+  /* ---------- VARIANT A : grotesque + mono numerals ---------- */
+  .a, .a .head h2 { font-family:var(--sans); }
+  .a .k, .a .seclabel, .a th { text-transform:uppercase; letter-spacing:.07em; font-weight:600; }
+  .a .head h2 { font-weight:600; }
+  .a .lead .v, .a .side .v, .a td.num, .a .lead .d, .a .side .d, .a td:nth-child(3) {
+    font-family:var(--mono); font-variant-numeric:tabular-nums; }
+  .a .lead .v { font-weight:500; letter-spacing:-.045em; }
+  .a .side .v { font-weight:500; }
+  .a td.name { font-weight:500; }
+
+  /* ---------- VARIANT B : serif display + sans utility ---------- */
+  .b .head h2 { font-family:var(--serif); font-weight:600; font-size:17px; letter-spacing:0; }
+  .b .lead .v { font-family:var(--serif); font-weight:600; letter-spacing:-.02em; }
+  .b .side .v { font-family:var(--serif); font-weight:600; }
+  .b .k, .b .seclabel, .b th { text-transform:uppercase; letter-spacing:.07em; font-weight:600; }
+  .b td.name { font-family:var(--serif); font-size:13.5px; font-weight:600; }
+  .b .lead .d, .b .side .d, .b td.num, .b td:nth-child(3) { font-variant-numeric:tabular-nums; }
+
+  @media (max-width:640px){ .top { grid-template-columns:1fr; } .tag { display:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div>
+    <span class="lab">A</span>
+    <div class="panel a">
+      <div class="head"><h2>Subscriptions</h2><span class="sub">Updated 09:14 · 6 of 23 shown</span></div>
+      <div class="top">
+        <div class="lead"><div class="k">Monthly spend</div><div class="v">$412.88</div><div class="d">+$18.40 vs. July</div></div>
+        <div class="side">
+          <div class="stat"><span class="k">Active<span class="d">2 added, 1 cancelled</span></span><span class="v">23</span></div>
+          <div class="stat"><span class="k">Renewing in 7d<span class="d">4 charges</span></span><span class="v">$96.47</span></div>
+        </div>
+      </div>
+      <div class="seclabel">Upcoming charges</div>
+      <table>
+        <thead><tr><th>Service</th><th>Plan</th><th>Next charge</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>Adobe CC<span class="tag">design</span></td><td>Individual</td><td>Aug 9</td><td class="num">$29.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>AWS<span class="tag">infra</span></td><td>Pay-as-you-go</td><td>Aug 11</td><td class="num">$41.20</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Notion<span class="tag">work</span></td><td>Plus, 3 seats</td><td>Aug 18</td><td class="num">$24.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Spotify<span class="tag">home</span></td><td>Duo</td><td>Aug 22</td><td class="num">$16.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Figma<span class="tag">design</span></td><td>Professional</td><td>Aug 27</td><td class="num">$15.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Backblaze<span class="tag">infra</span></td><td>Personal</td><td>Sep 02</td><td class="num">$9.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <span class="lab">B</span>
+    <div class="panel b">
+      <div class="head"><h2>Subscriptions</h2><span class="sub">Updated 09:14 · 6 of 23 shown</span></div>
+      <div class="top">
+        <div class="lead"><div class="k">Monthly spend</div><div class="v">$412.88</div><div class="d">+$18.40 vs. July</div></div>
+        <div class="side">
+          <div class="stat"><span class="k">Active<span class="d">2 added, 1 cancelled</span></span><span class="v">23</span></div>
+          <div class="stat"><span class="k">Renewing in 7d<span class="d">4 charges</span></span><span class="v">$96.47</span></div>
+        </div>
+      </div>
+      <div class="seclabel">Upcoming charges</div>
+      <table>
+        <thead><tr><th>Service</th><th>Plan</th><th>Next charge</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>Adobe CC<span class="tag">design</span></td><td>Individual</td><td>Aug 9</td><td class="num">$29.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>AWS<span class="tag">infra</span></td><td>Pay-as-you-go</td><td>Aug 11</td><td class="num">$41.20</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Notion<span class="tag">work</span></td><td>Plus, 3 seats</td><td>Aug 18</td><td class="num">$24.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Spotify<span class="tag">home</span></td><td>Duo</td><td>Aug 22</td><td class="num">$16.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Figma<span class="tag">design</span></td><td>Professional</td><td>Aug 27</td><td class="num">$15.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Backblaze<span class="tag">infra</span></td><td>Personal</td><td>Sep 02</td><td class="num">$9.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

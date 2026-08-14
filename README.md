@@ -28,6 +28,15 @@ npx skills add aleexwong/claude-skills --skill design-taste
 |---|---|
 | [design-taste](plugins/design-taste) | Elicits your personal design taste through structured A/B rounds and produces a reusable taste doc. |
 
+## See it run
+
+**[aleexwong.github.io/claude-skills](https://aleexwong.github.io/claude-skills/)** — a full
+session record: the taste doc it produced, plus all nine rendered A/B rounds embedded live.
+Rounds 6–8 are interactive, so motion, disclosure and error states can actually be judged.
+
+It's a worked example, not a template — a different session lands somewhere else, and should.
+Source: [`docs/`](docs).
+
 ## License
 
 MIT

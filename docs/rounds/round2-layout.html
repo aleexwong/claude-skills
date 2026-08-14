@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round 2 — A / B</title>
+<style>
+  :root { --ink:#141414; --mid:#5c5c5c; --soft:#8a8a8a; --line:#e3e3e0; --line2:#f0f0ee;
+          --surf:#ffffff; --page:#fafaf9; --ok:#3f8f5c; --warn:#b8863b; }
+  *, *::before, *::after { box-sizing:border-box; }
+  body { margin:0; padding:28px 20px 48px; background:#f2f2f0;
+         font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:30px; }
+  .lab { display:inline-block; background:#dededa; color:#1a1a1a; font-size:12px; font-weight:700;
+         letter-spacing:.08em; padding:5px 12px; border-radius:3px; margin:0 0 10px; }
+  .panel { background:var(--page); border:1px solid var(--line); border-radius:6px; padding:14px; }
+
+  /* shared dense chrome */
+  .head { display:flex; align-items:baseline; justify-content:space-between;
+          padding-bottom:10px; border-bottom:1px solid var(--line); margin-bottom:12px; }
+  .head h2 { margin:0; font-size:14px; font-weight:600; color:var(--ink); letter-spacing:-.01em; }
+  .head .sub { font-size:11px; color:var(--soft); }
+  table { width:100%; border-collapse:collapse; background:var(--surf); border:1px solid var(--line); font-size:12.5px; }
+  th { text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--soft);
+       font-weight:600; padding:6px 10px; border-bottom:1px solid var(--line); background:#f6f6f4; }
+  td { padding:6px 10px; border-bottom:1px solid var(--line2); color:var(--mid); font-variant-numeric:tabular-nums; }
+  tr:last-child td { border-bottom:0; }
+  td.name { color:var(--ink); font-weight:500; }
+  td.num, th.num { text-align:right; }
+  .tag { display:inline-block; font-size:10px; padding:1px 5px; border:1px solid var(--line);
+         border-radius:2px; color:var(--soft); margin-left:6px; }
+  .dot { display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+
+  /* ---------- VARIANT A : flat, equal-weight grid ---------- */
+  .a .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
+              border:1px solid var(--line); margin-bottom:12px; }
+  .a .stat { background:var(--surf); padding:9px 11px; }
+  .a .stat .k { font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--soft); margin-bottom:3px; }
+  .a .stat .v { font-size:19px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+  .a .stat .d { font-size:11px; color:var(--mid); margin-top:2px; font-variant-numeric:tabular-nums; }
+
+  /* ---------- VARIANT B : hierarchical, asymmetric ---------- */
+  .b .top { display:grid; grid-template-columns:1.9fr 1fr; gap:1px; background:var(--line);
+            border:1px solid var(--line); margin-bottom:12px; }
+  .b .lead { background:var(--surf); padding:14px 14px 12px; }
+  .b .lead .k { font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--soft); margin-bottom:5px; }
+  .b .lead .v { font-size:38px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums;
+                letter-spacing:-.035em; line-height:1; }
+  .b .lead .d { font-size:11px; color:var(--mid); margin-top:6px; font-variant-numeric:tabular-nums; }
+  .b .side { display:flex; flex-direction:column; gap:1px; background:var(--line); }
+  .b .side .stat { background:var(--surf); padding:8px 11px; flex:1; display:flex;
+                   align-items:baseline; justify-content:space-between; }
+  .b .side .k { font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--soft); }
+  .b .side .v { font-size:15px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .b .side .d { font-size:10px; color:var(--soft); display:block; margin-top:2px; }
+  .b .seclabel { font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--soft);
+                 margin:0 0 5px; font-weight:600; }
+
+  @media (max-width:640px){
+    .a .stats, .b .top { grid-template-columns:1fr; }
+    .tag { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div>
+    <span class="lab">A</span>
+    <div class="panel a">
+      <div class="head"><h2>Subscriptions</h2><span class="sub">Updated 09:14 · 6 of 23 shown</span></div>
+      <div class="stats">
+        <div class="stat"><div class="k">Monthly spend</div><div class="v">$412.88</div><div class="d">+$18.40 vs. July</div></div>
+        <div class="stat"><div class="k">Active</div><div class="v">23</div><div class="d">2 added, 1 cancelled</div></div>
+        <div class="stat"><div class="k">Renewing in 7d</div><div class="v">$96.47</div><div class="d">4 charges</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Service</th><th>Plan</th><th>Next charge</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>Adobe CC<span class="tag">design</span></td><td>Individual</td><td>Aug 9</td><td class="num">$29.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>AWS<span class="tag">infra</span></td><td>Pay-as-you-go</td><td>Aug 11</td><td class="num">$41.20</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Notion<span class="tag">work</span></td><td>Plus, 3 seats</td><td>Aug 18</td><td class="num">$24.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Spotify<span class="tag">home</span></td><td>Duo</td><td>Aug 22</td><td class="num">$16.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Figma<span class="tag">design</span></td><td>Professional</td><td>Aug 27</td><td class="num">$15.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Backblaze<span class="tag">infra</span></td><td>Personal</td><td>Sep 02</td><td class="num">$9.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <span class="lab">B</span>
+    <div class="panel b">
+      <div class="head"><h2>Subscriptions</h2><span class="sub">Updated 09:14 · 6 of 23 shown</span></div>
+      <div class="top">
+        <div class="lead">
+          <div class="k">Monthly spend</div>
+          <div class="v">$412.88</div>
+          <div class="d">+$18.40 vs. July</div>
+        </div>
+        <div class="side">
+          <div class="stat"><span class="k">Active<span class="d">2 added, 1 cancelled</span></span><span class="v">23</span></div>
+          <div class="stat"><span class="k">Renewing in 7d<span class="d">4 charges</span></span><span class="v">$96.47</span></div>
+        </div>
+      </div>
+      <div class="seclabel">Upcoming charges</div>
+      <table>
+        <thead><tr><th>Service</th><th>Plan</th><th>Next charge</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>Adobe CC<span class="tag">design</span></td><td>Individual</td><td>Aug 9</td><td class="num">$29.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--warn)"></span>AWS<span class="tag">infra</span></td><td>Pay-as-you-go</td><td>Aug 11</td><td class="num">$41.20</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Notion<span class="tag">work</span></td><td>Plus, 3 seats</td><td>Aug 18</td><td class="num">$24.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Spotify<span class="tag">home</span></td><td>Duo</td><td>Aug 22</td><td class="num">$16.99</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Figma<span class="tag">design</span></td><td>Professional</td><td>Aug 27</td><td class="num">$15.00</td></tr>
+          <tr><td class="name"><span class="dot" style="background:var(--ok)"></span>Backblaze<span class="tag">infra</span></td><td>Personal</td><td>Sep 02</td><td class="num">$9.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
