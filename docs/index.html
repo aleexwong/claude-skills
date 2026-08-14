@@ -87,7 +87,12 @@ a{color:inherit;}
   padding:56px 0 26px;
   border-bottom:1px solid var(--rule);
   margin-bottom:40px;
+  display:grid;
+  grid-template-columns:186px minmax(0,1fr);
+  column-gap:48px;
 }
+/* masthead content shares the one vertical line with every section below it */
+.mast-body{grid-column:2;min-width:0;}
 .mast-kicker{
   font-family:var(--mono);
   font-size:10.5px;
@@ -394,6 +399,8 @@ code{font-family:var(--mono);font-size:.92em;}
 @media (max-width:940px){
   .shell{grid-template-columns:minmax(0,1fr);padding:0 20px 80px;}
   .rail,.main{grid-column:1;}
+  .masthead{grid-template-columns:minmax(0,1fr);}
+  .mast-body{grid-column:1;}
   .rail-inner{position:static;}
   .rail{margin-bottom:44px;padding-bottom:8px;}
   .rail ol{margin-bottom:20px;}
@@ -405,6 +412,7 @@ code{font-family:var(--mono);font-size:.92em;}
 <div class="shell">
 
   <header class="masthead">
+   <div class="mast-body">
     <div class="mast-kicker rise">Session record · design-taste v0.1.0</div>
     <h1 class="rise d1">A design taste, elicited one layer at a time</h1>
     <div class="mast-meta rise d2">
@@ -424,6 +432,7 @@ code{font-family:var(--mono);font-size:.92em;}
       skill produces — <strong>not a template and not a recommendation</strong>. These are one
       person's reactions. A different session would land somewhere else entirely, and should.
     </p>
+   </div>
   </header>
 
   <nav class="rail" aria-label="Contents">
