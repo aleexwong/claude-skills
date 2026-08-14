@@ -18,9 +18,9 @@ Every principle below was extracted from six A/B comparisons of the same dashboa
 - **Confidence** = how sure I am this preference is real and stable.
 - **Scope** = where it has actually been tested.
 
-Nothing here has been tested on a marketing page, a form, a settings screen, a document view, or a mobile-first layout. A principle marked *high confidence · dashboard only* means "he clearly meant this, about dashboards." It does not license applying it to a landing page.
+Nothing here has been tested on a marketing page, a form, a settings screen, a document view, or a mobile-first layout. A principle marked *high confidence · dashboard only* means "they clearly meant this, about dashboards." It does not license applying it to a landing page.
 
-Two principles are exceptions worth calling out, because he stated them as general convictions rather than picking them off a comparison: **color must carry meaning**, and **alignment is non-negotiable**. Those are craft rules and probably do travel. Everything else should be treated as dashboard-local until tested.
+Two principles are exceptions worth calling out, because they were stated as general convictions rather than picking them off a comparison: **color must carry meaning**, and **alignment is non-negotiable**. Those are craft rules and probably do travel. Everything else should be treated as dashboard-local until tested.
 
 ---
 
@@ -62,7 +62,7 @@ Build interfaces that feel like an instrument panel over the user's own data, no
 - Expressive over functional. Staggered entrances, a spring-like curve (~`cubic-bezier(.16,1,.3,1)`), hover lift on cards, sequenced reveals. Bare 140ms fades read as under-invested. *(medium · dashboard only)*
 - Value counters stay under ~450ms. A number that takes a beat too long to settle becomes friction. *(medium-high · dashboard only)*
 - Motion budget scales inversely with frequency. First paint and on-demand reveals can be choreographed; hover, filter, and re-render must be near-instant. *(inferred, untested)*
-- Always honour `prefers-reduced-motion`. *(assumed, not his stated preference)*
+- Always honour `prefers-reduced-motion`. *(assumed, not a stated preference)*
 
 ### Disclosure & states
 - Disclosure is a flip: the card turns over to a detail view in the same footprint. Drawers and expand-in-place bands both lost to it. *(medium · dashboard only)*
@@ -109,14 +109,14 @@ These are holes, not omissions. There is no evidence either way, and guessing fr
 - Axis treatment: labelled or minimal, inside or outside the plot area?
 - Gridlines: present, ghosted, or absent?
 - Does "color must mean something" hold for series color, or do multi-series charts get a sequential/categorical ramp?
-- Chart types he trusts vs. rejects. One data point only: he implicitly preferred a segmented bar over a donut, but that was my choice, not his.
+- Chart types trusted vs. rejected. One data point only: a segmented bar was implicitly preferred over a donut, but that was the model’s framing, not an elicited pick.
 - Do charts get the serif treatment for values, or does the utility-sans rule take over?
 
 **The interaction model for "one level deep."** Settled — flip, with the number held fixed. What remains open: whether flip still holds for detail that doesn't fit the card footprint, and what the back face does on narrow screens.
 
 **States.** Probed across loading, partial failure, total failure, and empty. What remains open: error copy tone (the takeover copy was mine), and whether retry is ever automatic.
 
-**Typographic scale.** The sizes in the composite are mine, not chosen. The serif/sans split is his; the ratios are not.
+**Typographic scale.** The sizes in the composite are mine, not chosen. The serif/sans split was elicited; the ratios were not.
 
 **Breakpoint behavior.** The most likely place the whole system breaks. Density is the first casualty on a narrow viewport, and there is no rule for what gets dropped. *Derived prediction, untested:* since density means "nothing unranked," the narrow layout should shed rank-3 content entirely rather than shrink everything proportionally.
 
