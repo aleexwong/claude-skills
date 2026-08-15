@@ -1,0 +1,12 @@
+{
+  "name": "shiplog",
+  "version": "0.1.0",
+  "description": "Turn a range of git commits into a changelog, a build-in-public post, and evidence-backed résumé bullets.",
+  "author": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "repository": "https://github.com/aleexwong/claude-skills",
+  "license": "MIT",
+  "keywords": ["git", "changelog", "release-notes", "writing", "portfolio", "build-in-public"]
+}

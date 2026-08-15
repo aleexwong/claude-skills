@@ -14,12 +14,14 @@ Then install individual plugins:
 
 ```
 /plugin install design-taste@alex-skills
+/plugin install shiplog@alex-skills
 ```
 
 **Any agent (via [skills.sh](https://skills.sh) / `npx skills`):**
 
 ```
 npx skills add aleexwong/claude-skills --skill design-taste
+npx skills add aleexwong/claude-skills --skill shiplog
 ```
 
 ## Skills
@@ -27,6 +29,7 @@ npx skills add aleexwong/claude-skills --skill design-taste
 | Plugin | What it does |
 |---|---|
 | [design-taste](plugins/design-taste) | Elicits your personal design taste through structured A/B rounds and produces a reusable taste doc. |
+| [shiplog](plugins/shiplog) | Turns a range of git commits into a changelog, a build-in-public post, and evidence-backed résumé bullets. |
 
 ## See it run
 

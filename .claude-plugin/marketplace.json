@@ -13,6 +13,11 @@
       "name": "design-taste",
       "source": "./design-taste",
       "description": "Elicits a user's personal design taste through structured A/B rounds and produces a reusable taste doc."
+    },
+    {
+      "name": "shiplog",
+      "source": "./shiplog",
+      "description": "Turns a range of git commits into a changelog, a build-in-public post, and evidence-backed résumé bullets."
     }
   ]
 }
