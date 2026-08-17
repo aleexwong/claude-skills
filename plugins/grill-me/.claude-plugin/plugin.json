@@ -1,0 +1,12 @@
+{
+  "name": "grill-me",
+  "version": "0.1.0",
+  "description": "Interrogates a fuzzy idea one pointed question at a time until it becomes a brief you can act on.",
+  "author": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "repository": "https://github.com/aleexwong/claude-skills",
+  "license": "MIT",
+  "keywords": ["requirements", "brief", "spec", "elicitation", "planning", "clarity"]
+}

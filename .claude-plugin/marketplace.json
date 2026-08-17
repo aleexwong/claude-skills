@@ -13,6 +13,11 @@
       "name": "design-taste",
       "source": "./design-taste",
       "description": "Elicits a user's personal design taste through structured A/B rounds and produces a reusable taste doc."
+    },
+    {
+      "name": "grill-me",
+      "source": "./grill-me",
+      "description": "Interrogates a fuzzy idea one pointed question at a time until it becomes a brief you can act on."
     }
   ]
 }

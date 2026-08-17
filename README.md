@@ -27,6 +27,7 @@ npx skills add aleexwong/claude-skills --skill design-taste
 | Plugin | What it does |
 |---|---|
 | [design-taste](plugins/design-taste) | Elicits your personal design taste through structured A/B rounds and produces a reusable taste doc. |
+| [grill-me](plugins/grill-me) | Interrogates a fuzzy idea one pointed question at a time until it becomes a brief you can act on. |
 
 ## See it run
 
