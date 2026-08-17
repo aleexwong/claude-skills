@@ -13,6 +13,11 @@
       "name": "design-taste",
       "source": "./design-taste",
       "description": "Elicits a user's personal design taste through structured A/B rounds and produces a reusable taste doc."
+    },
+    {
+      "name": "playwright-tests",
+      "source": "./playwright-tests",
+      "description": "Writes and repairs Playwright tests that wait on observable conditions instead of fixed timeouts."
     }
   ]
 }

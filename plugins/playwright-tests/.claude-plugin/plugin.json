@@ -1,0 +1,12 @@
+{
+  "name": "playwright-tests",
+  "version": "0.1.0",
+  "description": "Write and repair Playwright tests that wait on observable conditions instead of fixed timeouts.",
+  "author": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "repository": "https://github.com/aleexwong/claude-skills",
+  "license": "MIT",
+  "keywords": ["playwright", "testing", "e2e", "flaky-tests", "qa", "automation"]
+}
