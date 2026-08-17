@@ -1,0 +1,12 @@
+{
+  "name": "code-taste",
+  "version": "0.1.0",
+  "description": "Excavate how a codebase is actually organized and turn it into a conventions doc agents can follow.",
+  "author": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "repository": "https://github.com/aleexwong/claude-skills",
+  "license": "MIT",
+  "keywords": ["code", "conventions", "architecture", "refactoring", "onboarding"]
+}

@@ -13,6 +13,11 @@
       "name": "design-taste",
       "source": "./design-taste",
       "description": "Elicits a user's personal design taste through structured A/B rounds and produces a reusable taste doc."
+    },
+    {
+      "name": "code-taste",
+      "source": "./code-taste",
+      "description": "Excavates how a codebase is actually organized and produces a conventions doc that agents and teammates can follow."
     }
   ]
 }

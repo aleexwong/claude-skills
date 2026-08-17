@@ -14,6 +14,7 @@ Then install individual plugins:
 
 ```
 /plugin install design-taste@alex-skills
+/plugin install code-taste@alex-skills
 ```
 
 **Any agent (via [skills.sh](https://skills.sh) / `npx skills`):**
@@ -27,6 +28,7 @@ npx skills add aleexwong/claude-skills --skill design-taste
 | Plugin | What it does |
 |---|---|
 | [design-taste](plugins/design-taste) | Elicits your personal design taste through structured A/B rounds and produces a reusable taste doc. |
+| [code-taste](plugins/code-taste) | Excavates how your codebase is actually organized and produces a conventions doc agents can follow. |
 
 ## See it run
 
