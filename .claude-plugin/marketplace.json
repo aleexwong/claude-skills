@@ -18,6 +18,11 @@
       "name": "working-practices",
       "source": "./working-practices",
       "description": "Verify before claiming, keep project memory, and hold one source of truth — three disciplines extracted from shipped work."
+    },
+    {
+      "name": "agent-legible",
+      "source": "./agent-legible",
+      "description": "Makes a site readable and callable by AI agents: Markdown mirrors, content negotiation, llms.txt, prerendered answers, and an MCP server."
     }
   ]
 }

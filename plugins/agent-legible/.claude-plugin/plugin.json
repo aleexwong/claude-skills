@@ -1,0 +1,12 @@
+{
+  "name": "agent-legible",
+  "version": "0.1.0",
+  "description": "Make a site readable and callable by AI agents: Markdown mirrors, content negotiation, llms.txt, prerendered answers, and an MCP server.",
+  "author": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "repository": "https://github.com/aleexwong/claude-skills",
+  "license": "MIT",
+  "keywords": ["mcp", "llms-txt", "seo", "ai-agents", "content-negotiation", "crawlers"]
+}
