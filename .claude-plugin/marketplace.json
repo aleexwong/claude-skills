@@ -1,6 +1,6 @@
 {
   "name": "alex-skills",
-  "description": "Agent skills for design, frontend, and QA workflows.",
+  "description": "Agent skills for design, frontend, and engineering-discipline workflows.",
   "owner": {
     "name": "Alex Wong",
     "url": "https://github.com/aleexwong"
@@ -13,6 +13,11 @@
       "name": "design-taste",
       "source": "./design-taste",
       "description": "Elicits a user's personal design taste through structured A/B rounds and produces a reusable taste doc."
+    },
+    {
+      "name": "working-practices",
+      "source": "./working-practices",
+      "description": "Verify before claiming, keep project memory, and hold one source of truth — three disciplines extracted from shipped work."
     }
   ]
 }

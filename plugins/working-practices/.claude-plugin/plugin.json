@@ -1,0 +1,12 @@
+{
+  "name": "working-practices",
+  "version": "0.1.0",
+  "description": "Three engineering disciplines extracted from shipped work: verify before claiming, keep project memory, and hold one source of truth.",
+  "author": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "repository": "https://github.com/aleexwong/claude-skills",
+  "license": "MIT",
+  "keywords": ["verification", "testing", "documentation", "code-quality", "agent-workflow"]
+}
