@@ -23,6 +23,11 @@
       "name": "agent-legible",
       "source": "./agent-legible",
       "description": "Makes a site readable and callable by AI agents: Markdown mirrors, content negotiation, llms.txt, prerendered answers, and an MCP server."
+    },
+    {
+      "name": "paid-access",
+      "source": "./paid-access",
+      "description": "Turn a payment into access the buyer can't grant themselves and you can take back: entitlement writes, scarce names claimed at settlement, webhook idempotency, and revocation."
     }
   ]
 }

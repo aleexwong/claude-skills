@@ -1,0 +1,12 @@
+{
+  "name": "paid-access",
+  "version": "0.1.0",
+  "description": "Turn a payment into access the buyer can't grant themselves and you can take back: entitlement writes, claiming scarce names at settlement, webhook idempotency, and revocation.",
+  "author": {
+    "name": "Alex Wong",
+    "url": "https://github.com/aleexwong"
+  },
+  "repository": "https://github.com/aleexwong/claude-skills",
+  "license": "MIT",
+  "keywords": ["stripe", "payments", "webhooks", "entitlements", "authorization", "idempotency"]
+}
